@@ -2,6 +2,8 @@ rude    = require 'rude'
 express = require 'express'
 ejs     = require 'ejs'
 
+html    = require './lib/html'
+
 module.exports = (app,config)->
   
   # Configure Templates
@@ -24,4 +26,5 @@ module.exports = (app,config)->
   
   # Use Rude Asset Management
   app.locals.rude  = rude.config()
+  app.locals.html  = html
   app.locals.title = config.title || 'My Application'

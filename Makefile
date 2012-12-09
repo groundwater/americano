@@ -1,5 +1,6 @@
 BUILD=build
 PUBLIC=${BUILD}/public
+CCOFFEE=coffee -c -l -b -o
 
 export PATH := $(shell pwd)/node_modules/.bin:$(PATH)
 
@@ -10,8 +11,10 @@ export PATH := $(shell pwd)/node_modules/.bin:$(PATH)
 install: coffee styles scripts bootstrap
 
 coffee: node_modules
-	coffee -c -l -b -o build/app app
-	coffee -c -l -b -o build server.coffee
+	${CCOFFEE} ${BUILD}/app/controllers app/controllers
+	${CCOFFEE} ${BUILD}/app/lib         app/lib
+	${CCOFFEE} ${BUILD}/app             app/*.coffee
+	${CCOFFEE} ${BUILD}                 *.coffee
 
 assets: bootstrap styles scripts
 
