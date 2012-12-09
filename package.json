@@ -1,0 +1,27 @@
+{
+  "name": "MyProject",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node build/server.js"
+  },
+  "repository": "",
+  "author": "Jacob Groundwater",
+  "license": "MIT",
+  "devDependencies": {
+    "coffee-script": "latest",
+    "mocha": "latest",
+    "colors": "latest",
+    "nodemon": "latest",
+    "less": "latest",
+    "recess": "latest",
+    "connect": "latest",
+    "uglify-js": "latest",
+    "jshint": "latest"
+  },
+  "dependencies": {
+    "ejs": "latest",
+    "express": "latest"
+  }
+}
