@@ -1,4 +1,5 @@
 BUILD=build
+PUBLIC=${BUILD}/public
 
 export PATH := $(shell pwd)/node_modules/.bin:$(PATH)
 
@@ -17,21 +18,25 @@ clean:
 	rm -rf node_modules
 	$(MAKE) -C app/vendor/bootstrap clean
 
-assets: bootstrap ${BUILD}/public
-	mkdir -p ${BUILD}/public/css
+assets: bootstrap styles scripts
+
+styles:
 	$(MAKE) build/public/css/main.css
 
-bootstrap: ${BUILD}/public
+scripts:
+	$(MAKE) build/public/js/main.js
+
+bootstrap: ${PUBLIC}
 	$(MAKE) -C app/vendor/bootstrap bootstrap
-	cp -r app/vendor/bootstrap/bootstrap ${BUILD}/public
+	cp -r app/vendor/bootstrap/bootstrap ${PUBLIC}
 
 ## Real ##
 
 node_modules: package.json 
 	npm install
 
-${BUILD}/public:
-	mkdir -p ${BUILD}/public
-
-build/public/css/%.css: app/styles/%.less ${BUILD}/public
+build/public/css/%.css: app/styles/%.less
 	lessc $< $@
+
+build/public/js/%.js: app/scripts/%.coffee
+	coffee -c -l -o build/public/js $<
