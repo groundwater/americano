@@ -1,6 +1,12 @@
+rude    = require 'rude'
 express = require 'express'
+ejs     = require 'ejs'
 
 module.exports = (app,config)->
+  
+  # Configure Templates
+  ejs.open  = '{{'
+  ejs.close = '}}'
   
   # Define Configuratinos
   cookieSessionOptions =
@@ -15,4 +21,7 @@ module.exports = (app,config)->
   app.use express.cookieSession( cookieSessionOptions  )
   app.use express.csrf()
   app.use '/assets', express.static( config.public )
-
+  
+  # Use Rude Asset Management
+  app.locals.rude  = rude.config()
+  app.locals.title = config.title || 'My Application'
