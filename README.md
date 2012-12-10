@@ -20,13 +20,19 @@
         models/             <- database wiring
         views/              <- logic-less templates
         controllers/        <- request handlers
+    
+    client/                 <- compiled client resources
+        less/               <- LESS stylesheets
+        coffee/             <- coffee scripts for browser
+    
     config/                 <- all application defaults
         routes.coffee       <- routes configuration
         config.coffee       <- application configuration
+    
     db/                     <- database schemas and migrations
     lib/                    <- shared modules
     public/                 <- directly accessible
-    scripts/                <- administrative script
+    script/                 <- administrative script
     test/                   <- all tests
     vendor/                 <- third party code
     
