@@ -1,3 +1,4 @@
 redis-db
 mysql-db
 mongo-db
+*.pid
