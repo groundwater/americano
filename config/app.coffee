@@ -2,7 +2,7 @@ rude    = require 'rude'
 express = require 'express'
 ejs     = require 'ejs'
 
-html    = require '../lib/html'
+html    = require 'lib/html'
 
 module.exports = (app,config)->
   
