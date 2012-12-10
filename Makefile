@@ -17,7 +17,8 @@ develop: install link-src
 
 release: install build link-bin
 	ln -sf Procfile.release Procfile
-	
+	cp -r  app/views build/app/views
+	cp -r  public    build/
 
 clean:
 	rm -rf build

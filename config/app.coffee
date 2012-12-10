@@ -15,7 +15,7 @@ module.exports = (app,config)->
     secret: config.secret
   
   # Do Configurations
-  app.set 'views', 'app/views'
+  app.set 'views', config.views
   app.use express.logger()
   app.use express.compress()
   app.use express.bodyParser()

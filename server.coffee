@@ -19,6 +19,7 @@ app = express()
 settings = 
   secret: SECRET
   public: __dirname + '/public'
+  views : __dirname + '/app/views'
 
 config(app,settings)
 routes(app)
