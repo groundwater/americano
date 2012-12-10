@@ -2,8 +2,8 @@
 express = require 'express'
 
 # Local Imports
-routes  = require './app/routes'
-config  = require './app/app'
+routes  = require './config/routes'
+config  = require './config/app'
 
 # Import Environment
 PORT      = process.env.PORT      || 8888

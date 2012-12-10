@@ -1,4 +1,4 @@
-controllers = require './controllers'
+controllers = require '../app/controllers'
 
 module.exports = (app)->
   app.get '/',         controllers.index
