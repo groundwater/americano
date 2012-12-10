@@ -14,67 +14,61 @@
 
 ## Files
 
-- `server.coffee` is the main entry point of the application.
-    The server file is the main dependency injector,
-    and initializes modules from environment variables.
+### Layout
 
-- `app/` directory contains the bulk of the application.
-    No components in the `app` directory will be statically accessible.
-
-    - `app.coffee` configures the application.
-        This file accepts its configuration,
-        and makes no attempt to read any configurations from the environment.
-
-    - `routes.coffee` is the main router.
-        Its only job is to link HTTP routes to controllers.
-        There is no business logic.
-
-    - `controllers` directory contains HTTP request controllers.
-        Each controllers exists as a top-level name exposed by the `controllers` module.
-
-    - `views` contains templates for the controllers, in any template language.
-
-    - `lib` contains re-usable application components.
-
-    - `styles` contains compilable stylesheets, such as `LESS`.
-        Files here are compiled to `build/public/css`, 
-        and accessible from `/assets/css`
-
-    - `scripts` contains compilable browser scripts, such as coffee scripts.
-        Files here are compiled to `build/public/js`,
-        and accessible from `/assets/js`
-
-    - `vendor` contains 3rd party libraries that _must_ be stored in the project.
-        Each vendor app can be linked in a unique way.
-        The linkage should be added to the appropriate `Makefile`.
-
-- `public` contains raw assets to be statically served at runtime.
-    This directory is merged with statically compiled assets,
-    so care must be taken to avoid namespace collisions.
+    app/                    <- only MVC code
+        models/             <- database wiring
+        views/              <- logic-less templates
+        controllers/        <- request handlers
+    config/                 <- all application defaults
+        routes.coffee       <- routes configuration
+        config.coffee       <- application configuration
+    db/                     <- database schemas and migrations
+    lib/                    <- shared modules
+    public/                 <- directly accessible
+    scripts/                <- administrative script
+    test/                   <- all tests
+    vendor/                 <- third party code
     
-    - it is _very_ likely this directory is just a symlink to `build/public`
-    - this directory _may_ be directly read from nginx, or another static web-server
-    - _all_ assets in this directory are assumed publicly cacheable
+    assets.json             <- Rude assets file
+    package.json            <- standard Node.js package
+    server.coffee           <- imports application environment
+    
+    [M/C]akefile            <- provides application targets
+    
+    # Possibly Not Checked Into Git #
+    
+    Procfile                <- 
+    tmp/                    <- temporary files
 
-- `Procfile` must contain all necessary information to start the application.
+    # Definitely Not Checked Into Git #
+    
+    .env                    <- environment configurations
 
-- `Makefile` must contain at minimum the `install` command,
-    which when invoked readies the application for start.
+### Makeable Targets
 
-- `build` is the output of the build process.
-    This directory is _optional_ however,
-    as a means of conveniently organizing all the compiled components together.
+Makeable targets should ready the application for running,
+but never actually run the application.
+It is encouraged to create more targets as necessary,
+but the following targets are _always_ expected.
+
+    clean              <- delete all generated files
+    develop            <- ready app for development
+    release            <- ready app for production
+
+Each target should work with the given Procfile.
+If necessary, the Procfile can be auto-generated.
+
+The `release` target should combine and compact public scripts,
+style sheets, and perform other necessary optimizations.
+
+The `develop` target should auto-restart on changes to source code,
+and be debugger friendly.
+There should be no code compaction, and no optimizations.
 
 ## Deployment
 
 The application can and _should_ be deployed directly from the Git repository.
-
-### Deployment Procedure
-
-Upon triggering a deployment,
-the target branch will be unpacked to a directory and built with:
-
-- `make install`
-- `sudo nf export -o /etc/init -e ${ENV_FILE} -u ${USER}`
-
+Environment variables are expected to be provided for attached resources,
+and other deployment-dependent settings.
 
