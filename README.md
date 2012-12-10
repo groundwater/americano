@@ -44,7 +44,7 @@
     
     # Possibly Not Checked Into Git #
     
-    Procfile                <- 
+    Procfile                <- define runnable processes
     tmp/                    <- temporary files
 
     # Definitely Not Checked Into Git #
