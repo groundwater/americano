@@ -13,8 +13,8 @@ default:
 	@echo "Hello"
 
 develop: install link-src
+	mkdir -p public
 	ln -sf Procfile.develop Procfile
-	ln -sf ../tmp/scripts public
 	ln -sf ../vendor/requirejs/require.js public/
 
 release: install build link-bin require

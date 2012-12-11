@@ -3,3 +3,4 @@ build
 Procfile
 .env
 tmp
+public
