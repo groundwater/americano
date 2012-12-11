@@ -1,16 +1,18 @@
-# NodeFly APM #
-APP_KEY   = process.env.NODEFLY_APPLICATION_KEY
-APP_NAME  = process.env.NODEFLY_APPLICATION_NAME
-APP_HOST  = process.env.NODEFLY_APPLICATION_HOST
-nodefly   = require 'nodefly'
-nodefly.profile APP_KEY, [APP_NAME,APP_HOST]
-
 # Import Environment
 PORT      = process.env.PORT      || 8888
 SECRET    = process.env.SECRET    || console.warn 'Please Set Application Secret'
 MYSQL_URL = process.env.MYSQL_URL || console.warn 'Please Set MySQL URL'
 REDIS_URL = process.env.REDIS_URL || console.warn 'Please Set Redis URL'
 MONGO_URL = process.env.MONGO_URL || console.warn 'Please Set Mongo URL'
+APP_KEY   = process.env.NODEFLY_APPLICATION_KEY
+APP_NAME  = process.env.NODEFLY_APPLICATION_NAME
+APP_HOST  = process.env.NODEFLY_APPLICATION_HOST
+
+# NodeFly APM #
+if APP_KEY
+  nodefly = require 'nodefly'
+  nodefly.profile APP_KEY, [APP_NAME,APP_HOST]
+  console.log 'Starting NodeFly Profiler with Key %s and Name "%s - %s"', APP_KEY, APP_NAME, APP_HOST
 
 # Native Imports
 url     = require 'url'
@@ -56,4 +58,3 @@ app.listen PORT
 
 # Emit Logs
 console.log 'Server Listening on Port %d', PORT
-console.log 'Starting NodeFly Profiler with Key %s and Name "%s - %s"', APP_KEY, APP_NAME, APP_HOST
