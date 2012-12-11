@@ -26,6 +26,7 @@ release: install build link-bin require
 clean:
 	rm -rf build
 	rm -rf tmp
+	rm -rf public
 	rm -rf node_modules
 	rm -f  Procfile
 	find public -type l -exec rm -f {} \;
