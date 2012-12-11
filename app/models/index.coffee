@@ -1,6 +1,9 @@
+crypto = require 'crypto'
+
 module.exports = (app) ->
   
   user: 
-    test: ->
+    name: ->
       app.mysql.query('SELECT COUNT(1)')
-
+      "Bob"
+  

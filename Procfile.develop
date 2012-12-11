@@ -1,1 +1,2 @@
 web: node-dev server.coffee
+compile: coffee -w -c -o tmp/scripts client/coffee

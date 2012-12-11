@@ -19,14 +19,16 @@
     "connect": "latest",
     "uglify-js": "latest",
     "jshint": "latest",
-    "mysql": "latest",
-    "redis": "latest",
-  	"mongodb": "latest",
     "node-dev": "latest"
   },
   "dependencies": {
     "ejs": "latest",
     "express": "latest",
-    "rude": "latest"
+    "rude": "latest",
+    "nodefly": "~0.1.16a",
+    "mysql": "latest",
+    "redis": "latest",
+    "mongodb": "latest",
+    "requirejs": "~2.1.2"
   }
 }

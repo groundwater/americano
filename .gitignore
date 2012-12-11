@@ -2,3 +2,4 @@ node_modules
 build
 Procfile
 .env
+tmp

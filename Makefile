@@ -14,6 +14,8 @@ default:
 
 develop: install link-src
 	ln -sf Procfile.develop Procfile
+	ln -sf ../tmp/scripts public
+	ln -sf ../vendor/requirejs/require.js public/
 
 release: install build link-bin
 	ln -sf Procfile.release Procfile
@@ -26,6 +28,12 @@ clean:
 	rm -f  Procfile
 
 ## Release ##
+
+require:
+	mkdir -p tmp/scripts
+	mkdir -p build/public/scripts
+	coffee -c -o tmp/scripts client/coffee
+	env r.js -o script/app.build.js
 
 define link-bin
 	rm -f node_modules/$1
