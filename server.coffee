@@ -2,18 +2,19 @@
 APP_KEY   = process.env.NODEFLY_APPLICATION_KEY
 APP_NAME  = process.env.NODEFLY_APPLICATION_NAME
 APP_HOST  = process.env.NODEFLY_APPLICATION_HOST
-nodefly = require('nodefly')
+nodefly   = require 'nodefly'
 nodefly.profile APP_KEY, [APP_NAME,APP_HOST]
 
 # Import Environment
 PORT      = process.env.PORT      || 8888
-SECRET    = process.env.SECRET    || console.warn('Please Set Application Secret')
-MYSQL_URL = process.env.MYSQL_URL || console.warn('Please Set MySQL URL')
-REDIS_URL = process.env.REDIS_URL || console.warn('Please Set Redis URL')
-MONGO_URL = process.env.MONGO_URL || console.warn('Please Set Mongo URL')
+SECRET    = process.env.SECRET    || console.warn 'Please Set Application Secret'
+MYSQL_URL = process.env.MYSQL_URL || console.warn 'Please Set MySQL URL'
+REDIS_URL = process.env.REDIS_URL || console.warn 'Please Set Redis URL'
+MONGO_URL = process.env.MONGO_URL || console.warn 'Please Set Mongo URL'
 
 # Native Imports
 url     = require 'url'
+path    = require 'path'
 
 # Module Imports
 express = require 'express'
@@ -38,19 +39,20 @@ mongo_db = new mongo.Server mongo_config.hostname, mongo_config.port
 redis_db.on 'error',   -> console.warn 'Redis Reconnecting'
 redis_db.on 'connect', -> console.warn 'Redis Connected'
 
-# Configure Application and Routes
-settings = 
+# Wire Application
+here     = __dirname
+defaults = 
   secret: SECRET
-  public: __dirname + '/public'
-  views : __dirname + '/app/views'
+  public: path.join here, '/public'
+  views : path.join here, '/app/views'
   mysql : mysql_db
   redis : redis_db
   mongo : mongo_db
 
-config(app,settings)
+config app, defaults
 
 # Run Application
-app.listen(PORT)
+app.listen PORT
 
 # Emit Logs
 console.log 'Server Listening on Port %d', PORT

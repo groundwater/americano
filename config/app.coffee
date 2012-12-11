@@ -7,7 +7,7 @@ models  = require 'app/models'
 
 routes  = require './routes'
 
-module.exports = (app,config)->
+module.exports = (app,defaults)->
   
   # Configure Templates
   ejs.open  = '{{'
@@ -15,27 +15,27 @@ module.exports = (app,config)->
   
   # Define Configuratinos
   cookieSessionOptions =
-    secret: config.secret
+    secret: defaults.secret
   
   # Do Configurations
-  app.set 'views', config.views
+  app.set 'views', defaults.views
   app.use express.logger()
   app.use express.compress()
   app.use express.bodyParser()
   app.use express.cookieParser()
   app.use express.cookieSession( cookieSessionOptions  )
   app.use express.csrf()
-  app.use '/assets', express.static( config.public )
+  app.use '/assets', express.static( defaults.public )
   
   # Use Rude Asset Management
   app.locals.rude  = rude.config()
   app.locals.html  = html
-  app.locals.title = config.title || 'My Application'
+  app.locals.title = defaults.title || 'My Application'
   
   # Attach Databases
-  app.mysql = config.mysql
-  app.redis = config.redis
-  app.mongo = config.mongo
+  app.mysql = defaults.mysql
+  app.redis = defaults.redis
+  app.mongo = defaults.mongo
   
   # Attach MVC
   app.models = models(app)
