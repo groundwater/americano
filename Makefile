@@ -17,10 +17,11 @@ develop: install link-src
 	ln -sf ../tmp/scripts public
 	ln -sf ../vendor/requirejs/require.js public/
 
-release: install build link-bin
+release: install build link-bin require
 	ln -sf Procfile.release Procfile
 	cp -r  app/views build/app/views
 	cp -r  public    build/
+	cp vendor/requirejs/require.js build/public
 
 clean:
 	rm -rf build
