@@ -1,8 +1,12 @@
-module.exports.index = (req,res) ->
-  res.render 'index.ejs'
+module.exports = (app)->
 
-module.exports.login = (req,res) ->
-  res.render 'login.ejs'
+  index: (req,res) ->
+    app.models.user.test()
+    res.render 'index.ejs'
 
-module.exports.register = (req,res) ->
-  res.render 'register.ejs'
+  login: (req,res) ->
+    res.render 'login.ejs'
+
+  register: (req,res) ->
+    res.render 'register.ejs'
+

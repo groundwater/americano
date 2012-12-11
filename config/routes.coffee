@@ -1,6 +1,9 @@
 controllers = require 'app/controllers'
 
 module.exports = (app)->
-  app.get '/',         controllers.index
-  app.get '/login',    controllers.login
-  app.get '/register', controllers.register
+  
+  $ = controllers(app)
+  
+  app.get '/',         $.index
+  app.get '/login',    $.login
+  app.get '/register', $.register

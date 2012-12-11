@@ -3,6 +3,9 @@ express = require 'express'
 ejs     = require 'ejs'
 
 html    = require 'lib/html'
+models  = require 'app/models'
+
+routes  = require './routes'
 
 module.exports = (app,config)->
   
@@ -28,3 +31,13 @@ module.exports = (app,config)->
   app.locals.rude  = rude.config()
   app.locals.html  = html
   app.locals.title = config.title || 'My Application'
+  
+  # Attach Databases
+  app.mysql = config.mysql
+  app.redis = config.redis
+  app.mongo = config.mongo
+  
+  # Attach MVC
+  app.models = models(app)
+  app.routes = routes(app)
+
