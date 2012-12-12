@@ -13,10 +13,13 @@ default:
 	@echo "Hello"
 
 develop: install link-src
-	mkdir -p public
+	rm -f  public
+	mkdir -p tmp/public
 	ln -sf Procfile.develop Procfile
-	ln -sf ../vendor/requirejs/require.js public/
-
+	ln -sf ../../vendor/requirejs/require.js tmp/public/
+	ln -sf tmp/public public
+	env lessc client/less/main.less tmp/public/main.css
+	
 release: install build link-bin require
 	ln -sf Procfile.release Procfile
 	cp -r  app/views build/app/views
@@ -26,8 +29,7 @@ release: install build link-bin require
 clean:
 	rm -rf build
 	rm -rf tmp
-	rm -rf public
-	rm -rf node_modules
+	# rm -rf node_modules
 	rm -f  Procfile
 	find public -type l -exec rm -f {} \;
 

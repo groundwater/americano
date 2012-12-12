@@ -7,7 +7,10 @@ models  = require 'app/models'
 
 routes  = require './routes'
 
-module.exports = (app,defaults)->
+module.exports = (defaults)->
+  
+  # Setup Application
+  app = express()
   
   # Configure Templates
   ejs.open  = '{{'
@@ -32,12 +35,16 @@ module.exports = (app,defaults)->
   app.locals.html  = html
   app.locals.title = defaults.title || 'My Application'
   
-  # Attach Databases
-  app.mysql = defaults.mysql
-  app.redis = defaults.redis
-  app.mongo = defaults.mongo
+  # Attach Valvues (External Resources)
+  valves =
+    mysql: defaults.mysql
+    redis: defaults.redis
+    mongo: defaults.mongo
   
   # Attach MVC
-  app.models = models(app)
+  app.valves = valves
   app.routes = routes(app)
+  app.models = models(app)
 
+  # Return Application
+  app
