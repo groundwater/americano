@@ -30,15 +30,15 @@ models  = require './app/models'
 routes  = require './app/routes'
 
 # Initialize External Resources
-redis_config = url.parse REDIS_URL
-mongo_config = url.parse MONGO_URL
-
-mysql_db = {} #mysql.createConnection MYSQL_URL
-redis_db = {} #redis.createClient redis_config.port, redis_config.hostname
-mongo_db = {} #new mongo.Server mongo_config.hostname, mongo_config.port
-
-redis_db.on 'error',   -> console.warn 'Redis Reconnecting'
-redis_db.on 'connect', -> console.warn 'Redis Connected'
+#redis_config = url.parse REDIS_URL
+#mongo_config = url.parse MONGO_URL
+#
+#mysql_db = mysql.createConnection MYSQL_URL
+#redis_db = redis.createClient redis_config.port, redis_config.hostname
+#mongo_db = new mongo.Server mongo_config.hostname, mongo_config.port
+#
+#redis_db.on 'error',   -> console.warn 'Redis Reconnecting'
+#redis_db.on 'connect', -> console.warn 'Redis Connected'
 
 # Setup Application Defaults
 options= 
@@ -50,13 +50,13 @@ options=
 guides =
   
   sql : 
-    main: mysql_db
+    main: {}
   
   redis : 
-    main: redis_db
+    main: {}
   
   mongo : 
-    main: mongo_db
+    main: {}
 
 # Listen
 app = config models, routes, guides, options
