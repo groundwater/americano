@@ -64,11 +64,11 @@
 The `lib` module is symbolically linked into
 `node_modules` and directly accessible via
 
-    require('lib')
-    # or
     require('lib/SUB_MODULE_NAME')
 
 The `lib` module should include all your application-independent code.
+The `lib` module itself should export _no_ content, only submodules.
+Submodules should be independent of each other.
 
 ### Makeable Targets
 
