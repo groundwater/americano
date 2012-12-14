@@ -31,10 +31,11 @@
     "mysql": "latest",
     "redis": "latest",
     "mongodb": "latest",
-    "requirejs": "~2.1.2"
+    "requirejs": "~2.1.2",
+    "stylus": "~0.31.0"
   },
-  "engines" :{
-    "node" : "0.8.x",
-    "npm"  : "~1.1.63"
+  "engines": {
+    "node": "0.8.x",
+    "npm": "~1.1.63"
   }
 }
