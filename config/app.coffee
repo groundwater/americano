@@ -3,11 +3,10 @@ express = require 'express'
 ejs     = require 'ejs'
 
 html    = require 'lib/html'
-models  = require 'app/models'
 
 router  = require './router'
 
-module.exports = (model,routes,valves,options)->
+module.exports = (models,routes,guides,options)->
   
   # Setup Application
   app = express()
@@ -30,15 +29,17 @@ module.exports = (model,routes,valves,options)->
   app.use express.csrf()
   app.use '/assets', express.static( options.public )
   
+  # Template Defaults
+  app.locals.title = options.title || 'My Application'
+  
   # Use Rude Asset Management
   app.locals.rude  = rude.config()
   app.locals.html  = html
-  app.locals.title = options.title || 'My Application'
   
   # Attach MVC
-  app.valves = valves
-  app.router = router(app,routes app)
+  app.guides = guides
   app.models = models(app)
-
+  app.router = router(app,routes app)
+  
   # Return Application
   app

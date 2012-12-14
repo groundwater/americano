@@ -1,5 +1,11 @@
 module.exports = (app)->
 
   index: (req,res) ->
-    res.render 'index.ejs'
+    render = 
+      users: [
+        app.models.users.New()
+        app.models.users.Load(0)
+      ]
+    
+    res.render 'index.ejs', render
 

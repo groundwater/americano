@@ -88,7 +88,6 @@ build: install
 	@${CCOFFEE} build/lib    lib
 
 link-bin: install
-	@$(call link-bin,app)
 	@$(call link-bin,lib)
 
 ## Develop ##
@@ -99,7 +98,6 @@ define link-source
 endef
 
 link-src: install
-	@$(call link-source,app)
 	@$(call link-source,lib)
 
 ## All ##

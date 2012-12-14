@@ -33,9 +33,9 @@ routes  = require './app/routes'
 redis_config = url.parse REDIS_URL
 mongo_config = url.parse MONGO_URL
 
-mysql_db = mysql.createConnection MYSQL_URL
-redis_db = redis.createClient redis_config.port, redis_config.hostname
-mongo_db = new mongo.Server mongo_config.hostname, mongo_config.port
+mysql_db = {} #mysql.createConnection MYSQL_URL
+redis_db = {} #redis.createClient redis_config.port, redis_config.hostname
+mongo_db = {} #new mongo.Server mongo_config.hostname, mongo_config.port
 
 redis_db.on 'error',   -> console.warn 'Redis Reconnecting'
 redis_db.on 'connect', -> console.warn 'Redis Connected'
@@ -46,14 +46,20 @@ options=
   public: path.join __dirname, '/public'
   views : path.join __dirname, '/app/views'
 
-# Attach Valvues (External Resources)
-valves =
-  mysql : mysql_db
-  redis : redis_db
-  mongo : mongo_db
+# Attach Guides (External Resources)
+guides =
+  
+  sql : 
+    main: mysql_db
+  
+  redis : 
+    main: redis_db
+  
+  mongo : 
+    main: mongo_db
 
 # Listen
-app = config models, routes, valves, options
+app = config models, routes, guides, options
 app.listen PORT
 
 # Emit Logs
