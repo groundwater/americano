@@ -27,7 +27,7 @@
     app/                    <- only MVC code
         models/             <- database wiring
         views/              <- logic-less templates
-        controllers/        <- request handlers
+        routes/             <- request handlers
     
     client/                 <- compiled client resources
         less/               <- LESS stylesheets
