@@ -34,7 +34,7 @@
         coffee/             <- coffee scripts for browser
     
     config/                 <- all application defaults
-        routes.coffee       <- routes configuration
+        router.coffee       <- routes configuration
         config.coffee       <- application configuration
     
     db/                     <- database schemas and migrations
