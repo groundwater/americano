@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "echo \"Please create a Procfile with 'make release' or 'make develop'\""
+    "start": "echo \"Please create a Procfile with 'make release' or 'make develop'\"",
+    "postinstall": "make release"
   },
   "repository": "",
   "author": "Jacob Groundwater",
