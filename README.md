@@ -2,15 +2,23 @@
 
 ## Goals
 
-- build entire project from `make install`
+- build entire project from a `make` target
 - app can be deployed with `git push`
-    - via `make install && nf export`
-- compiles less
+    - via `make release`
+- release bundles resources
+    - css and js combined to a single compact file
+    - require.js compacted to a single file
+- compiles stylus
 - compiles coffee script
 - Makefile friendly
     - updating a less file triggers a re-compile of the changed files
 - developer friendly
     - can run with a _watch_ command to re-compile on save
+- forward and reverse database migrations
+    - auto migrations for development
+    - controlled migrations for production
+    - read database parameters from environment
+- test-driven-development friendly
 
 ## Files
 
