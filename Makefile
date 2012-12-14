@@ -8,7 +8,7 @@ DONE=$B[DONE]$N
 
 BUILD=build
 PUBLIC=${BUILD}/public
-CCOFFEE=env coffee -c -l -b -o
+CCOFFEE=node_modules/.bin/coffee -c -l -b -o
 M=node_modules
 
 export PATH := $(shell pwd)/node_modules/.bin:$(PATH)
@@ -52,7 +52,7 @@ release: install build link-bin require
 	@cp vendor/requirejs/require.js build/public
 	@echo "${INFO} ----> Compiling Stylus"
 	@mkdir -p build/public/styles
-	@env stylus --compress --out build/public/styles client/stylus
+	@node_modules/.bin/stylus --compress --out build/public/styles client/stylus
 	@echo "${INFO} Application Ready"
 	@echo "${DONE} Use 'nf export -h' to view job export help"
 
@@ -72,8 +72,8 @@ require:
 	@echo "${INFO} ----> Compiling RequireJS"
 	@mkdir -p tmp/scripts
 	@mkdir -p build/public/scripts
-	@env coffee -c -o tmp/scripts client/coffee
-	@env r.js -o script/app.build.js >/dev/null 2>&1
+	@node_modules/.bin/coffee -c -o tmp/scripts client/coffee
+	@node_modules/.bin/r.js -o script/app.build.js >/dev/null 2>&1
 
 define link-bin
 	rm -f node_modules/$1
