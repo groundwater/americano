@@ -8,7 +8,7 @@ DONE=$B[DONE]$N
 
 BUILD=build
 PUBLIC=${BUILD}/public
-CCOFFEE=coffee -c -l -b -o
+CCOFFEE=env coffee -c -l -b -o
 M=node_modules
 
 export PATH := $(shell pwd)/node_modules/.bin:$(PATH)
@@ -72,7 +72,7 @@ require:
 	@echo "${INFO} ----> Compiling RequireJS"
 	@mkdir -p tmp/scripts
 	@mkdir -p build/public/scripts
-	@coffee -c -o tmp/scripts client/coffee
+	@env coffee -c -o tmp/scripts client/coffee
 	@env r.js -o script/app.build.js >/dev/null 2>&1
 
 define link-bin
