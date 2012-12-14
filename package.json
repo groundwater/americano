@@ -10,7 +10,6 @@
   "author": "Jacob Groundwater",
   "license": "MIT",
   "devDependencies": {
-    "coffee-script": "latest",
     "mocha": "latest",
     "colors": "latest",
     "nodemon": "latest",
@@ -23,6 +22,7 @@
     "node-dev": "latest"
   },
   "dependencies": {
+    "coffee-script": "latest",
     "ejs": "latest",
     "express": "latest",
     "rude": "latest",
