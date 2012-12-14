@@ -2,8 +2,6 @@ crypto = require 'crypto'
 
 module.exports = (app) ->
   
-  user: 
-    name: ->
-      app.mysql.query('SELECT COUNT(1)')
-      "Bob"
-  
+  demo: 
+    slowquery: (seconds,cb) ->
+      app.valves.mysql.query 'SELECT SLEEP(?)', [seconds], cb

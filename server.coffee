@@ -26,6 +26,8 @@ mongo   = require 'mongodb'
 
 # Local Imports
 config  = require './config/app'
+models  = require './app/models'
+routes  = require './app/routes'
 
 # Initialize External Resources
 redis_config = url.parse REDIS_URL
@@ -39,16 +41,19 @@ redis_db.on 'error',   -> console.warn 'Redis Reconnecting'
 redis_db.on 'connect', -> console.warn 'Redis Connected'
 
 # Setup Application Defaults
-defaults = 
+options= 
   secret: SECRET
   public: path.join __dirname, '/public'
   views : path.join __dirname, '/app/views'
+
+# Attach Valvues (External Resources)
+valves =
   mysql : mysql_db
   redis : redis_db
   mongo : mongo_db
 
 # Listen
-app = config defaults
+app = config models, routes, valves, options
 app.listen PORT
 
 # Emit Logs

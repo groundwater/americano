@@ -1,2 +1,3 @@
 web: node-dev server.coffee
-compile: coffee -w -c -o tmp/public/scripts client/coffee
+coffee: coffee -w -c -o tmp/public/scripts client/coffee
+stylus: node_modules/.bin/stylus --line-numbers --watch --out tmp/public/styles client/stylus

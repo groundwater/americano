@@ -19,6 +19,7 @@
     "connect": "latest",
     "uglify-js": "latest",
     "jshint": "latest",
+    "db-migrate": "latest",
     "node-dev": "latest"
   },
   "dependencies": {

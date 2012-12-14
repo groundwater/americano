@@ -5,9 +5,9 @@ ejs     = require 'ejs'
 html    = require 'lib/html'
 models  = require 'app/models'
 
-routes  = require './routes'
+router  = require './router'
 
-module.exports = (defaults)->
+module.exports = (model,routes,valves,options)->
   
   # Setup Application
   app = express()
@@ -18,32 +18,26 @@ module.exports = (defaults)->
   
   # Define Configuratinos
   cookieSessionOptions =
-    secret: defaults.secret
+    secret: options.secret
   
   # Do Configurations
-  app.set 'views', defaults.views
+  app.set 'views', options.views
   app.use express.logger()
   app.use express.compress()
   app.use express.bodyParser()
   app.use express.cookieParser()
   app.use express.cookieSession( cookieSessionOptions  )
   app.use express.csrf()
-  app.use '/assets', express.static( defaults.public )
+  app.use '/assets', express.static( options.public )
   
   # Use Rude Asset Management
   app.locals.rude  = rude.config()
   app.locals.html  = html
-  app.locals.title = defaults.title || 'My Application'
-  
-  # Attach Valvues (External Resources)
-  valves =
-    mysql: defaults.mysql
-    redis: defaults.redis
-    mongo: defaults.mongo
+  app.locals.title = options.title || 'My Application'
   
   # Attach MVC
   app.valves = valves
-  app.routes = routes(app)
+  app.router = router(app,routes app)
   app.models = models(app)
 
   # Return Application

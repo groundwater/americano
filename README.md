@@ -31,7 +31,6 @@
     
     db/                     <- database schemas and migrations
     lib/                    <- shared modules
-    public/                 <- directly accessible
     script/                 <- administrative script
     test/                   <- all tests
     vendor/                 <- third party code
@@ -45,11 +44,23 @@
     # Possibly Not Checked Into Git #
     
     Procfile                <- define runnable processes
+    public/                 <- symlink to assets directory
     tmp/                    <- temporary files
-
+    
     # Definitely Not Checked Into Git #
     
     .env                    <- environment configurations
+
+### Imports
+
+The `lib` module is symbolically linked into
+`node_modules` and directly accessible via
+
+    require('lib')
+    # or
+    require('lib/SUB_MODULE_NAME')
+
+The `lib` module should include all your application-independent code.
 
 ### Makeable Targets
 
