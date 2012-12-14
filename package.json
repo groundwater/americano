@@ -32,5 +32,8 @@
     "redis": "latest",
     "mongodb": "latest",
     "requirejs": "~2.1.2"
+  },
+  "engines" :{
+    "node" : "0.8.x" 
   }
 }
