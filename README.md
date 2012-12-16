@@ -20,6 +20,20 @@
     - read database parameters from environment
 - test-driven-development friendly
 
+## Database Migrations
+
+Database migrations are a valuable tool for any web application.
+
+A few database migration goals:
+
+- migrations are indexed via unix time
+- can be rolled forward or back
+- uses environment database connections
+- stores migration state in db table
+- database agnostic
+- print equivalent SQL migration
+- auto-migrate during development
+
 ## Files
 
 ### Layout

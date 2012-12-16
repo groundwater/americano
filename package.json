@@ -32,7 +32,8 @@
     "redis": "latest",
     "mongodb": "latest",
     "requirejs": "~2.1.2",
-    "stylus": "~0.31.0"
+    "stylus": "~0.31.0",
+    "async": "~0.1.22"
   },
   "engines": {
     "node": "0.8.x",
