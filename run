@@ -1,0 +1,9 @@
+#!/bin/bash
+
+trap "exit 0" SIGTERM SIGINT
+
+while true
+do
+  curl http://localhost:5000/$1 >/dev/null 2>&1
+  sleep 1
+done;

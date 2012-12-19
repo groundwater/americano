@@ -1,20 +1,10 @@
-util   = require 'util'
+util = require 'util'
 
 class User
   
-  constructor: (@db,@_cards)->
+  constructor: (@db,@models)->
     
-  _make: (@id,@email,@password)->
-  
-  _init: (user_id,next)->
-    
-    # Initialize Properties from Database
-    @db.query 'SELECT * from user', (err,rows)=>
-      row       = rows.pop()
-      @email    = row.email
-      @password = row.password
-      @id       = user_id
-      next()
+  make: (@id,@email,@password)->
     
   save: (next)->
     @db.query 'UPDATE user SET email=? WHERE id=?',
@@ -22,24 +12,34 @@ class User
       (err,rows)->
         next(err) if next
     
-  # Foreign Keys
+  ## INFO: Foreign Keys ##
+  
+  # Pluralize One-to-Many Relationships
   cards: (cb)->
-    @_cards.FindByUser @id, cb
+    @models.cards.FindByUser @id, cb
 
 module.exports = (app) ->
   
-  db  = app.guides.sql.main
+  models = app.models
+  guides = app.guides
   
-  # Callback
-  Load: (user_id,callback) ->
-    user = new User(db,app.models.cards)
-    user._init user_id, (err)->
-      callback err, user
-      
+  db     = guides.sql.main
+  
+  # Load an Existing Object from the Database
+  Load: (user_id,next) ->
+    user = new User db,models
+    db.query 'SELECT * from user', (err,rows)=>
+      return next err             if err
+      return next 'Too Many Rows' if rows.length > 1
+      row = rows.pop()
+      card.make user_id,row.email,row.password
+      next()
+  
+  # Create a New Object and Allocate a Primary Key  
   New: (cb)->
     db.query 'INSERT INTO user (id) VALUES (NULL)', (err,result)->
-      if err then cb err
-      user = new User(db,app.models.cards)
+      return cb err if err
+      user    = new User db,models
       user.id = result.insertId
       cb null, user
 

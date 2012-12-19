@@ -20,7 +20,9 @@
     "uglify-js": "latest",
     "jshint": "latest",
     "db-migrate": "latest",
-    "node-dev": "latest"
+    "node-dev": "latest",
+    "mu2": "~0.5.17",
+    "string": "~1.1.0"
   },
   "dependencies": {
     "coffee-script": "latest",

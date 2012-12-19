@@ -1,0 +1,12 @@
+echo "Running..."
+
+./run all    & ALL=$!
+./run redis  & REDIS=$!
+./run mysql  & MYSQL=$!
+./run node   & NODE=$!
+./run mongo  & MONGO=$!
+./run multisql & MS=$!
+./run block  & BLOCK=$!
+
+trap "echo Stopping && kill -9 ${MS} ${BLOCK} ${ALL} ${REDIS} ${MYSQL} ${NODE} ${MONGO}" SIGINT SIGTERM
+wait

@@ -2,65 +2,54 @@ util = require 'util'
 
 class Card
   
-  constructor: (@db)->
-    # Setup Uninitialized Properties
+  constructor: (@db,@models)->
   
-  _make: (@id,@name,@_user)->
+  make: (@id,@name,@user_id)->
   
-  _init: (user_id,next)->
-    
-    # Initialize Properties from Database
-    @db.query 'SELECT * from card', (err,rows)=>
-      if err             then return next err
-      if rows.length > 1 then return next 'Too Many Rows'
-        
-      row = rows.pop()
-      
-      @_make user_id, row.name, row.user
-      
-      next()
-    
   save: (next)->
     @db.query 'UPDATE card SET name=?, user=? WHERE id=?',
-      [@name,@_user,@id],
+      [@name,@user_id,@id],
       (err,rows)->
         next(err) if next
   
-  inspect: ->
-    
-    # List Local Properties
-    util.format "%d %s", @id, @name
-    
-  # Foreign Keys
+  ## INFO: Foreign Keys ##
+  
+  # Singular Many-to-One Relationship
   user: (cb)->
-    # 
-    cb()
-        
+    @models.user.Load @id, cb
 
 module.exports = (app) ->
   
-  db = app.guides.sql.main
+  models = app.models
+  guides = app.guides
   
-  # Callback
-  Load: (card_id,callback) ->
-    card = new Card(db)
-    card._init card_id, (err)->
-      callback err,user
-      
+  db     = guides.sql.main
+  
+  # Load an Existing Object from the Database
+  Load: (card_id,next) ->
+    card = new Card db,models
+    db.query 'SELECT * from card', (err,rows)=>
+      return next err             if err
+      return next 'Too Many Rows' if rows.length > 1
+      row = rows.pop()
+      card.make card_id,row.name,row.user
+      next()
+  
+  # Create a New Object and Allocate a Primary Key    
   New: (cb)->
     db.query 'INSERT INTO card (id) VALUES (NULL)', (err,result)->
-      if err then return cb err
-      card = new Card(db)
+      return cb err if err
+      card    = new Card db,models
       card.id = result.insertId
       cb null, card
-
-  FindByUser: (user_id,callback)->
+  
+  FindByUser: (user_id,next)->
     cards = []
     db.query 'SELECT * FROM card WHERE user=?', [user_id], (err,rows)->
-      if err then return callback err
+      if err then return next err
       rows.forEach (row)->
-        card = new Card(db)
-        card._make row.id, row.name, row.user
+        card = new Card db,models
+        card.make row.id, row.name, row.user
         cards.push card
-      callback null, cards if callback
+      next null, cards if next
     

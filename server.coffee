@@ -4,15 +4,21 @@ SECRET    = process.env.SECRET    || console.warn 'Please Set Application Secret
 MYSQL_URL = process.env.MYSQL_URL || console.warn 'Please Set MySQL URL'
 REDIS_URL = process.env.REDIS_URL || console.warn 'Please Set Redis URL'
 MONGO_URL = process.env.MONGO_URL || console.warn 'Please Set Mongo URL'
+
+#################
+## NodeFly APM ##
+#################
+
 APP_KEY   = process.env.NODEFLY_KEY
 APP_NAME  = process.env.NODEFLY_NAME
 APP_HOST  = process.env.NODEFLY_HOST
-
-# NodeFly APM #
 if APP_KEY
   nodefly = require 'nodefly'
   nodefly.profile APP_KEY, [APP_NAME,APP_HOST]
-  console.log 'Starting NodeFly Profiler with Key %s and Name "%s - %s"', APP_KEY, APP_NAME, APP_HOST
+
+#################
+##     END     ##
+#################
 
 # Native Imports
 url     = require 'url'
@@ -35,7 +41,9 @@ mongo_config = url.parse MONGO_URL
 
 mysql_db = mysql.createConnection MYSQL_URL
 redis_db = redis.createClient redis_config.port, redis_config.hostname
-mongo_db = new mongo.Server mongo_config.hostname, mongo_config.port
+
+mongo_server = new mongo.Server mongo_config.hostname, parseInt mongo_config.port
+mongo_db     = new mongo.Db 'test', mongo_server, {w: 1}
 
 redis_db.on 'error',   -> console.warn 'Redis Reconnecting'
 redis_db.on 'connect', -> console.warn 'Redis Connected'
@@ -47,20 +55,25 @@ options=
   views : path.join __dirname, '/app/views'
 
 # Attach Guides (External Resources)
-guides =
+mongo_db.open (err,mongo_client)->
+  throw err if err
   
-  sql : 
-    main: mysql_db
+  mongo_collection = new mongo.Collection(mongo_client, 'test')
   
-  redis : 
-    main: redis_db
+  guides =
   
-  mongo : 
-    main: mongo_db
+    sql : 
+      main: mysql_db
+  
+    redis : 
+      main: redis_db
+  
+    mongo : 
+      main: mongo_collection 
 
-# Listen
-app = config models, routes, guides, options
-app.listen PORT
+  # Listen
+  app = config models, routes, guides, options
+  app.listen PORT
 
-# Emit Logs
-console.log 'Server Listening on Port %d', PORT
+  # Emit Logs
+  console.log 'Server Listening on Port %d', PORT
