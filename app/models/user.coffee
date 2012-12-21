@@ -1,11 +1,17 @@
 util = require 'util'
 
+# The actual model class whose instances correspond
+# to individual rows in the database
 class User
-  
+
+  # This method should not be modified
   constructor: (@db,@models)->
-    
+  
+  # Setup properties by passing them in after construction
   make: (@id,@email,@password)->
-    
+  
+  # Save to the database
+  # This can be called multiple times
   save: (next)->
     @db.query 'UPDATE user SET email=? WHERE id=?',
       [@email,@id],
@@ -18,11 +24,13 @@ class User
   cards: (cb)->
     @models.cards.FindByUser @id, cb
 
+# Provide the equivalent of class methods
+# to lookup and create new models
 module.exports = (app) ->
   
+  # Create local references to guides
   models = app.models
-  guides = app.guides
-  
+  guides = app.guides  
   db     = guides.sql.main
   
   # Load an Existing Object from the Database

@@ -34,6 +34,7 @@ mongo   = require 'mongodb'
 config  = require './config/app'
 models  = require './app/models'
 routes  = require './app/routes'
+stdlib  = require './lib'
 
 # Initialize External Resources
 redis_config = url.parse REDIS_URL
@@ -72,7 +73,7 @@ mongo_db.open (err,mongo_client)->
       main: mongo_collection 
 
   # Listen
-  app = config models, routes, guides, options
+  app = config models, routes, guides, stdlib, options
   app.listen PORT
 
   # Emit Logs

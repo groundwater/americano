@@ -42,19 +42,17 @@ class Future
       else if @atofb
         (@atofb result).map @callback
 
-f = (m) ->
-  new Future (callback)->
-    setTimeout ()->
-      callback m
-    ,1
+if !module.parent
+  
+  f = (m) ->
+    new Future (callback)->
+      setTimeout ()->
+        callback m
+      ,1
 
-f('HI').flatMap (v0)->
-  f( v0 + '!' )
-.flatMap (v1)->
-  f( '<' + v1 + '>' )
-.map (v2)-> console.log v2
-
-
-
-
+  f('HI').flatMap (v0)->
+    f( v0 + '!' )
+  .flatMap (v1)->
+    f( '<' + v1 + '>' )
+  .map (v2)-> console.log v2
 

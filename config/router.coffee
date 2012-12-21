@@ -1,11 +1,8 @@
 module.exports = (app,routes)->
   
+  connect = app.lib.connect
+  authed  = connect.auth
+  
   # RAILS: Routes
-  app.get '/',                  routes.index
-  app.get '/mysql',             routes.mysql
-  app.get '/node',              routes.node
-  app.get '/redis',             routes.redis
-  app.get '/mongo',             routes.mongo
-  app.get '/all',               routes.all
-  app.get '/block',             routes.block
-  app.get '/multisql',          routes.multisql
+  app.get '/',                   authed, routes.index
+  app.get '/login',                      routes.login

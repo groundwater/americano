@@ -6,7 +6,10 @@ html    = require 'lib/html'
 
 router  = require './router'
 
-module.exports = (models,routes,guides,options)->
+# Create and configure an express application
+# based on the provided routes, guides, models, library
+# and other options
+module.exports = (models,routes,guides,lib,options)->
   
   # Setup Application
   app = express()
@@ -35,6 +38,9 @@ module.exports = (models,routes,guides,options)->
   # Use Rude Asset Management
   app.locals.rude  = rude.config()
   app.locals.html  = html
+  
+  # Attach Library
+  app.lib    = lib
   
   # Attach MVC
   app.guides = guides
