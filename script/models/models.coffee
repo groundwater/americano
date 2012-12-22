@@ -28,7 +28,9 @@ model_template = mu.compileAndRender 'model.coffee', temp
 model_template.on 'data', (data)->
   model_out += data
 model_template.on 'end', -> 
-  fs.writeFileSync 'app/models/' + name + '.coffee', model_out
+  file = 'app/models/' + name + '.coffee'
+  fs.writeFileSync file, model_out
+  console.log '[INFO] Wrote', file
 
 sql=
   model: name
@@ -59,4 +61,6 @@ sql_template.on 'data', (data)->
 sql_template.on 'end', -> 
   d = new Date()
   time = formatDate(d)
-  fs.writeFileSync 'db/migrations/' + time + '-' + name + '.js', sql_out
+  file = 'db/migrations/' + time + '-' + name + '.js'
+  fs.writeFileSync file, sql_out
+  console.log '[INFO] Wrote', file
