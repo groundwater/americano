@@ -12,17 +12,30 @@ module.exports = (app)->
   # Routes are decoupled from express paths
   index: (req,res) ->
     
+    user_id = parseInt req.session.user
+    
     # Pass renderable content into template
-    render = 
-      user: req.session.user
+    app.models.users.Load user_id, (e,user)->
+      return res.send err,500 if e
       
-    # Render a template from the `views` directory
-    res.render 'index.ejs', render
+      render=
+        user: user
+      
+      # Render a template from the `views` directory
+      res.render 'index.ejs', render
   
   login: (req,res) ->
     
     # Set the name of the logged in user
-    req.session.user = 'bob'
-    
-    # Redirect after login
-    res.redirect '/'
+    app.models.users.New (err,user)->
+      return res.send err,500 if err
+      
+      user.fname = 'Bob'
+      user.lname = 'Smith'
+      
+      req.session.user = user.id
+      
+      user.save ->
+        
+        # Redirect after login
+        res.redirect '/'

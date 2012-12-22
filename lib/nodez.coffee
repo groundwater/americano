@@ -27,6 +27,8 @@ class None extends Option
 
 ## Future ##
 
+class Failure
+
 class Future
   
   map: (@atob)->
@@ -41,18 +43,4 @@ class Future
         @callback @atob result
       else if @atofb
         (@atofb result).map @callback
-
-if !module.parent
-  
-  f = (m) ->
-    new Future (callback)->
-      setTimeout ()->
-        callback m
-      ,1
-
-  f('HI').flatMap (v0)->
-    f( v0 + '!' )
-  .flatMap (v1)->
-    f( '<' + v1 + '>' )
-  .map (v2)-> console.log v2
 
