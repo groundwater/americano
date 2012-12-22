@@ -2,6 +2,7 @@ crypto = require 'crypto'
 
 module.exports = (app) ->
   
-  # RAILS: Models
-  users: require('./user')(app)  
-  cars:  require('./car')(app)
+  ## Include Models ##
+  
+  # e.g.
+  # users: require('./user')(app)  
