@@ -1,0 +1,23 @@
+#!/bin/bash
+
+SCAFF=script/scaffolding
+VIEWS=${SCAFF}/views
+
+if [ ! $2 ] 
+  then echo 'Usage: model prop1,prop2,prop3'; exit -1
+fi
+
+mkdir -p app/views/$1s
+coffee ${VIEWS}/edit $1 $2 > app/views/$1s/edit.ejs
+coffee ${VIEWS}/show $1 $2 > app/views/$1s/show.ejs
+coffee ${VIEWS}/list $1 $2 > app/views/$1s/list.ejs
+echo "[INFO] Wrote app/views/$1s"
+
+coffee ${SCAFF}/models $1 $2
+
+coffee ${SCAFF}/router $1 >> config/router.coffee
+echo "[INFO] Appended $1 to config/router.coffee"
+
+coffee ${SCAFF}/routes $1 >> app/routes/index.coffee
+echo "[INFO] Appended $1 to app/routes/index.coffee"
+

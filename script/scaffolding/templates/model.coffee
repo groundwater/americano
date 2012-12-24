@@ -9,7 +9,7 @@ class {{Card}}
   
   # Setup properties by passing them in after construction
   make: (row)->
-    @id = row.id
+    @id = row.id if row.id
 {{make}}
   
   # Save to the database
@@ -20,6 +20,9 @@ class {{Card}}
       (err,rows)->
         next(err) if next
 
+  inspect: ->
+    util.format '{{Card}}:', @id, {{save.vars}}
+  
   ## Foreign Key References ##
 
 # Provide the equivalent of class methods
@@ -34,7 +37,7 @@ module.exports = (app) ->
   # Load an Existing Object from the Database
   Load: ({{card}}_id,next) ->
     {{card}} = new {{Card}} sql_db,models
-    sql_db.query 'SELECT * from {{card}} WHERE id=?', [{{card}}_id], (err,rows)=>
+    sql_db.query 'SELECT * FROM {{card}} WHERE id=?', [{{card}}_id], (err,rows)=>
       return next err             if err
       return next 'Result Empty'  if rows.length == 0
       return next 'Too Many Rows' if rows.length > 1
@@ -50,4 +53,27 @@ module.exports = (app) ->
       {{card}}.id = result.insertId
       next null, {{card}}
   
+  Struct: -> 
+{{struct}}
+  
+  # Range starts from 0
+  # For range maximum use -1
+  Range: (id_min,id_max,next)->
+    if id_max>0
+      query  = 'SELECT * FROM {{card}} WHERE id>=? AND id<?'
+      params = [id_min,id_max]
+    else
+      query  = 'SELECT * FROM {{card}} WHERE id>=?'
+      params = [id_min]
+    sql_db.query query, params, (err,rows)->
+      console.log
+      return next err if err
+      {{card}}s = []
+      rows.forEach (row)->
+        {{card}} = new {{Card}} sql_db,models
+        {{card}}.make row
+        {{card}}s.push {{card}}
+      next null, {{card}}s
+  
   ## Foreign Key Lookups ##
+

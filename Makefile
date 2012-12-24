@@ -31,6 +31,7 @@ default:
 	@echo
 	@echo "  install       install node modules with npm"
 	@echo "  require       compile and optimize require.js modules"
+	@echo "  migrate       migrate database"
 	@echo
 
 develop: install link-src
@@ -65,6 +66,11 @@ clean:
 	@rm -f  Procfile
 	@rm -f  public
 	@echo "${DONE} Done"
+
+## Database Migrations ##
+
+migrate:
+	node_modules/.bin/db-migrate -m db/migrations up
 
 ## Release ##
 

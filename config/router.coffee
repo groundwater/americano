@@ -4,5 +4,6 @@ module.exports = (app,routes)->
   authed  = connect.auth
   
   # RAILS: Routes
-  app.get '/',                   authed, routes.index
-  app.get '/login',                      routes.login
+  app.get  '/',                   authed, routes.index
+  app.get  '/login',                      routes.login
+

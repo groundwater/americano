@@ -1,0 +1,5 @@
+<form method="<%= method %>" action="<%= action %>">
+{{{inputs}}}    <input type="hidden" name="_csrf" value="<%= token %>">
+    <input type="submit" value="Submit">
+</form>
+<a href="/{{model}}/<%= {{model}}.id %>">Cancel</a>

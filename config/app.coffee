@@ -14,10 +14,6 @@ module.exports = (models,routes,guides,lib,options)->
   # Setup Application
   app = express()
   
-  # Configure Templates
-  ejs.open  = '{{'
-  ejs.close = '}}'
-  
   # Define Configuratinos
   cookieSessionOptions =
     secret: options.secret

@@ -18,6 +18,7 @@ temp=
   Card: str(name).capitalize()
   card: name
   make: set '    @%s = row.%s'
+  struct: set '    %s:\'\' #%s'
   save:
     sql : fmt '%s=?'
     vars: fmt '@%s'
@@ -63,4 +64,16 @@ sql_template.on 'end', ->
   time = formatDate(d)
   file = 'db/migrations/' + time + '-' + name + '.js'
   fs.writeFileSync file, sql_out
+  console.log '[INFO] Wrote', file
+
+route = 
+  model: name
+  Model: str(name).capitalize()
+route_out = ''
+route_template = mu.compileAndRender 'route.coffee', route
+route_template.on 'data', (data)->
+  route_out += data
+route_template.on 'end', ->
+  file = 'app/routes/' + name + 's.coffee'
+  fs.writeFileSync file, route_out
   console.log '[INFO] Wrote', file

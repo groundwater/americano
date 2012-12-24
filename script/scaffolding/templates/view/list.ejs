@@ -1,0 +1,8 @@
+<table>
+<% {{model}}s.forEach(function({{model}}){ %>
+    <tr>
+        <td><a href="/{{model}}/<%= {{model}}.id %>"><%= {{model}}.id %></a></td>
+{{rows}}
+    </tr>
+<% }) %>
+</table>
