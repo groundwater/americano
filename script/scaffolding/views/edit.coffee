@@ -9,7 +9,7 @@ render = (template)->
   $ '  <input type="hidden" name="_csrf" value="<%= token %>">'
   $ '  <input type="submit" value="Submit">'
   $ '</form>'
-  $ '<a href="/user/<%= user.id %>">Cancel</a>'
+  $ '<a href="/{model}/<%= {model}.id %>">Cancel</a>'
   $ '<% include ../footer %>'
 
 struct=
