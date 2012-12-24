@@ -21,3 +21,6 @@ echo "[INFO] Appended $1 to config/router.coffee"
 coffee ${SCAFF}/routes $1 >> app/routes/index.coffee
 echo "[INFO] Appended $1 to app/routes/index.coffee"
 
+coffee ${SCAFF}/routes $1 >> app/models/index.coffee
+echo "[INFO] Appended $1 to app/models/index.coffee"
+

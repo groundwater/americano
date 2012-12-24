@@ -6,5 +6,4 @@ module.exports = (app) ->
   
   # e.g.
   # users: require('./user')(app)  
-  
-  users: require('./user')(app)
+

@@ -29,7 +29,7 @@ model_template = mu.compileAndRender 'model.coffee', temp
 model_template.on 'data', (data)->
   model_out += data
 model_template.on 'end', -> 
-  file = 'app/models/' + name + '.coffee'
+  file = 'app/models/' + name + 's.coffee'
   fs.writeFileSync file, model_out
   console.log '[INFO] Wrote', file
 
