@@ -1,24 +1,51 @@
 # Americano
 
-Americano is coffee-script on rails.
+> Americano is coffee-script on rails.
+
+Americano is _not_ a framework.
+There is no Americano module to include in your project,
+you are free to write your app however you like.
+What Americano does do however is generate a lot of code you can further customize.
+
+Americano is about sensible defaults.
 
 ## Goals
 
-- build entire project from a `make` target
-- app can be deployed with `git push`
-    - via `make release`
-- release bundles resources
-    - css and js combined to a single compact file
-    - require.js compacted to a single file
-- compiles stylus
-- compiles coffee script
-- developer friendly
-    - can run with a _watch_ command to re-compile on save
-- forward and reverse database migrations
-    - auto migrations for development
-    - controlled migrations for production
-    - read database parameters from environment
-- test-driven-development friendly
+### Code Generation
+
+- Generate basic MVC scaffolding from a model description
+
+### Development Mode
+
+A development mode should exist that aids rapid development.
+Changes in code should be reflected immediately in the application.
+
+- re-compile and reload code on changes
+- use un-combined stylus in debug mode
+- use un-combined require.js scripts
+
+### Release Mode
+
+Release mode is all about efficiency.
+Resources should be combined when possible.
+Static assets are pre-compiled to Javascript, CSS and HTML.
+
+- combine and compact require.js code
+- compile and compact stylus code into a single `.css` file
+
+### Database
+
+Databases need to be upgraded,
+so migrations should be generated that can be tested and then applied in production.
+
+- generate database migrations
+
+### Vendor Code
+
+It shouldn't be a nightmare to include Twitter Bootstrap,
+and other 3rd party projects that require small tweaks or customizations.
+
+- allow compilation of vendor code
 
 ## Overview
 
