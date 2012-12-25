@@ -12,6 +12,8 @@ module.exports=
   redirect: (to)-> 
     (req,res)-> res.redirect to
 
-  
   TODO: (req,res)->
-    res.send 501, 'TODO'
+    res.send 501, 'Todo'
+  
+  NOT_FOUND: (req,res)->
+    res.send 404, 'Not Found'
