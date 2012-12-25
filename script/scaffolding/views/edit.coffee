@@ -4,12 +4,21 @@ render = (template)->
   $ = template.next
   
   $ '<% include ../header %>'
-  $ '<form method="<%= method %>" action="<%= action %>">'
-  $ '  <input type="text" name="{_}" placeholder="{_}" value="<%= {model}.{_} %>">', 'props'
+  $ '<form method="<%= method %>" action="<%= action %>" class="form-horizontal">'
+  $ '  <div class="control-group">'\
+  + '    <label class="control-label" for="input{_}">{_}</label>'\
+  + '    <div class="controls">'\
+  + '      <input type="text" name="{_}" placeholder="{_}" value="<%= {model}.{_} %>">'\
+  + '    </div>'\
+  + '  </div>', 'props'
   $ '  <input type="hidden" name="_csrf" value="<%= token %>">'
-  $ '  <input type="submit" value="Submit">'
+  $ '  <div class="control-group">'
+  $ '    <div class="controls">'
+  $ '      <button type="submit" class="btn-primary">Submit</button>'
+  $ '      <a class="btn"href="<%= cancel %>">Cancel</a>'
+  $ '    </div>'
+  $ '  </div>'
   $ '</form>'
-  $ '<a href="/{model}/<%= {model}.id %>">Cancel</a>'
   $ '<% include ../footer %>'
 
 struct=
