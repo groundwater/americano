@@ -1,15 +1,17 @@
-auth = (req,res,next)->
+module.exports=
   
-  if !req.session
-    res.redirect '/login'
-  else if !req.session.user
-    res.redirect '/login'
-  else
-    next()
+  auth: (req,res,next)->
+  
+    if !req.session
+      res.redirect '/login'
+    else if !req.session.user
+      res.redirect '/login'
+    else
+      next()
 
-redirect = (to)-> 
-  (req,res)-> res.redirect to
+  redirect: (to)-> 
+    (req,res)-> res.redirect to
 
-module.exports= 
-  auth: auth
-  redirect: redirect
+  
+  TODO: (req,res)->
+    res.send 501, 'TODO'

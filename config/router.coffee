@@ -1,6 +1,6 @@
+{connect}  = require 'lib'
+
 module.exports = (app,routes)->
-  
-  connect  = app.lib.connect
   
   authed   = connect.auth
   redirect = connect.redirect
