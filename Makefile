@@ -122,3 +122,6 @@ install: node_modules
 node_modules:
 	npm install
 
+purge:
+	git clean -df
+	git reset --hard
