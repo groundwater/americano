@@ -41,6 +41,7 @@ develop: install link-src
 	@ln -sf Procfile.develop Procfile
 	@ln -sf ../../vendor/requirejs/require.js tmp/public/
 	@ln -sf tmp/public public
+	@$(MAKE) bootstrap
 	@echo "${INFO} Application Ready"
 	@echo "${DONE} Use 'nf start' to run"
 	
@@ -50,6 +51,8 @@ release: install build link-bin require
 	@cp -r  app/views build/app/views
 	@echo "${INFO} ----> Copying Public Content"
 	@mkdir -p build/public
+	@rm -f public
+	@ln -sf build/public public
 	@cp vendor/requirejs/require.js build/public
 	@echo "${INFO} ----> Compiling Stylus"
 	@mkdir -p build/public/styles
@@ -66,6 +69,12 @@ clean:
 	@rm -f  Procfile
 	@rm -f  public
 	@echo "${DONE} Done"
+
+## Vendor ##
+
+bootstrap: public
+	@ln -sf `pwd`/vendor/bootstrap public
+	@echo "${INFO} Linking Twitter Bootstrap"
 
 ## Database Migrations ##
 
