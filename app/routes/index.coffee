@@ -4,3 +4,8 @@
 # application boot process.
 module.exports = (app)->
 
+  redirect: (to)->
+    (req,res)->
+      res.redirect to
+
+  users: require('./users')(app)
