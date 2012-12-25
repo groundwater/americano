@@ -8,4 +8,3 @@ module.exports = (app)->
     (req,res)->
       res.redirect to
 
-  users: require('./users')(app)
