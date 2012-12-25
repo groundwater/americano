@@ -1,4 +1,6 @@
-# Example Coffee Script App
+# Americano
+
+Americano is coffee-script on rails.
 
 ## Goals
 
@@ -10,8 +12,6 @@
     - require.js compacted to a single file
 - compiles stylus
 - compiles coffee script
-- Makefile friendly
-    - updating a less file triggers a re-compile of the changed files
 - developer friendly
     - can run with a _watch_ command to re-compile on save
 - forward and reverse database migrations
@@ -20,21 +20,7 @@
     - read database parameters from environment
 - test-driven-development friendly
 
-## Database Migrations
-
-Database migrations are a valuable tool for any web application.
-
-A few database migration goals:
-
-- migrations are indexed via unix time
-- can be rolled forward or back
-- uses environment database connections
-- stores migration state in db table
-- database agnostic
-- print equivalent SQL migration
-- auto-migrate during development
-
-## Files
+## Overview
 
 ### Layout
 
@@ -53,7 +39,7 @@ A few database migration goals:
     
     db/                     <- database schemas and migrations
     lib/                    <- shared modules
-    script/                 <- administrative script
+    script/                 <- scripts and tools
     test/                   <- all tests
     vendor/                 <- third party code
     
@@ -72,6 +58,24 @@ A few database migration goals:
     # Definitely Not Checked Into Git #
     
     .env                    <- environment configurations
+
+### Rails
+
+Americano gets you going quickly by generating boiler plate.
+
+    $ script/generate-scaffolding $MODEL $PROP1,$PROP2
+
+For example, generate `user` scaffolding with:
+    
+    $ script/generate-scaffolding user fname,lname,email
+    [INFO] Wrote app/views/users
+    [INFO] Wrote app/models/users.coffee
+    [INFO] Wrote db/migrations/20121224100855-user.js
+    [INFO] Wrote app/routes/users.coffee
+    [INFO] Appended user to config/router.coffee
+    [INFO] Appended user to app/routes/index.coffee
+    [INFO] Appended user to app/models/index.coffee
+    
 
 ### Imports
 
