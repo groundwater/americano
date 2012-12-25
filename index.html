@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Americano by jacobgroundwater</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Americano</h1>
+        <h2>Coffee Script Starter Project</h2>
+        <a href="https://github.com/jacobgroundwater/americano" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>Americano</h1>
+
+<blockquote>
+<p>Americano is coffee-script on rails.</p>
+</blockquote>
+
+<p>Americano is <em>not</em> a framework.
+There is no Americano module to include in your project,
+you are free to write your app however you like.
+What Americano does do however is generate a lot of code you can further customize.</p>
+
+<p>Americano is about sensible defaults.</p>
+
+<h2>Goals</h2>
+
+<h3>Code Generation</h3>
+
+<ul>
+<li>Generate basic MVC scaffolding from a model description</li>
+</ul><h3>Development Mode</h3>
+
+<p>A development mode should exist that aids rapid development.
+Changes in code should be reflected immediately in the application.</p>
+
+<ul>
+<li>re-compile and reload code on changes</li>
+<li>use un-combined stylus in debug mode</li>
+<li>use un-combined require.js scripts</li>
+</ul><h3>Release Mode</h3>
+
+<p>Release mode is all about efficiency.
+Resources should be combined when possible.
+Static assets are pre-compiled to Javascript, CSS and HTML.</p>
+
+<ul>
+<li>combine and compact require.js code</li>
+<li>compile and compact stylus code into a single <code>.css</code> file</li>
+</ul><h3>Database</h3>
+
+<p>Databases need to be upgraded,
+so migrations should be generated that can be tested and then applied in production.</p>
+
+<ul>
+<li>generate database migrations</li>
+</ul><h3>Vendor Code</h3>
+
+<p>It shouldn't be a nightmare to include Twitter Bootstrap,
+and other 3rd party projects that require small tweaks or customizations.</p>
+
+<ul>
+<li>allow compilation of vendor code</li>
+</ul><h2>Overview</h2>
+
+<h3>Layout</h3>
+
+<pre><code>app/                    &lt;- only MVC code
+    models/             &lt;- database wiring
+    views/              &lt;- logic-less templates
+    routes/             &lt;- request handlers
+
+client/                 &lt;- compiled client resources
+    less/               &lt;- LESS stylesheets
+    coffee/             &lt;- coffee scripts for browser
+
+config/                 &lt;- all application defaults
+    router.coffee       &lt;- routes configuration
+    config.coffee       &lt;- application configuration
+
+db/                     &lt;- database schemas and migrations
+lib/                    &lt;- shared modules
+script/                 &lt;- scripts and tools
+test/                   &lt;- all tests
+vendor/                 &lt;- third party code
+
+assets.json             &lt;- Rude assets file
+package.json            &lt;- standard Node.js package
+server.coffee           &lt;- imports application environment
+
+[M/C]akefile            &lt;- provides application targets
+
+# Possibly Not Checked Into Git #
+
+Procfile                &lt;- define runnable processes
+public/                 &lt;- symlink to assets directory
+tmp/                    &lt;- temporary files
+
+# Definitely Not Checked Into Git #
+
+.env                    &lt;- environment configurations
+</code></pre>
+
+<h3>Rails</h3>
+
+<p>Americano gets you going quickly by generating boiler plate.</p>
+
+<pre><code>$ script/generate-scaffolding $MODEL $PROP1,$PROP2
+</code></pre>
+
+<p>For example, generate <code>user</code> scaffolding with:</p>
+
+<pre><code>$ script/generate-scaffolding user fname,lname,email
+[INFO] Wrote app/views/users
+[INFO] Wrote app/models/users.coffee
+[INFO] Wrote db/migrations/20121224100855-user.js
+[INFO] Wrote app/routes/users.coffee
+[INFO] Appended user to config/router.coffee
+[INFO] Appended user to app/routes/index.coffee
+[INFO] Appended user to app/models/index.coffee
+</code></pre>
+
+<h3>Imports</h3>
+
+<p>The <code>lib</code> module is symbolically linked into
+<code>node_modules</code> and directly accessible via</p>
+
+<pre><code>require('lib/SUB_MODULE_NAME')
+</code></pre>
+
+<p>The <code>lib</code> module should include all your application-independent code.
+The <code>lib</code> module itself should export <em>no</em> content, only submodules.
+Submodules should be independent of each other.</p>
+
+<h3>Makeable Targets</h3>
+
+<p>Makeable targets should ready the application for running,
+but never actually run the application.
+It is encouraged to create more targets as necessary,
+but the following targets are <em>always</em> expected.</p>
+
+<pre><code>clean              &lt;- delete all generated files
+develop            &lt;- ready app for development
+release            &lt;- ready app for production
+</code></pre>
+
+<p>Each target should work with the given Procfile.
+If necessary, the Procfile can be auto-generated.</p>
+
+<p>The <code>release</code> target should combine and compact public scripts,
+style sheets, and perform other necessary optimizations.</p>
+
+<p>The <code>develop</code> target should auto-restart on changes to source code,
+and be debugger friendly.
+There should be no code compaction, and no optimizations.</p>
+
+<h2>Deployment</h2>
+
+<p>The application can and <em>should</em> be deployed directly from the Git repository.
+Environment variables are expected to be provided for attached resources,
+and other deployment-dependent settings.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/jacobgroundwater/americano/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/jacobgroundwater/americano/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/jacobgroundwater/americano"></a> is maintained by <a href="https://github.com/jacobgroundwater">jacobgroundwater</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
