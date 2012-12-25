@@ -7,4 +7,9 @@ auth = (req,res,next)->
   else
     next()
 
-module.exports.auth = auth
+redirect = (to)-> 
+  (req,res)-> res.redirect to
+
+module.exports= 
+  auth: auth
+  redirect: redirect

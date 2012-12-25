@@ -11,7 +11,7 @@ render = (template)->
   $ "  app.get  '/{model}/:id',                   routes.{model}s.show"
   $ "  app.get  '/{model}/:id/edit',              routes.{model}s.edit"
   $ "  app.post '/{model}/:id',                   routes.{model}s.edit_post"
-  $ "  app.get  '/{model}',                       routes.redirect '/{model}s'"
+  $ "  app.get  '/{model}',                       redirect '/{model}s'"
 
 struct=
   values:
