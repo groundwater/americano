@@ -47,7 +47,7 @@ develop: install link-src
 	@ln -sf Procfile.develop Procfile
 	@ln -sf ../../vendor/requirejs/require.js tmp/public/
 	@ln -sf tmp/public public
-	@$(MAKE) bootstrap
+	@$(MAKE) vendor
 	@echo "${INFO} Application Ready"
 	@echo "${DONE} Use 'nf start' to run"
 	
@@ -78,9 +78,15 @@ clean:
 
 ## Vendor ##
 
+vendor: bootstrap jquery
+
 bootstrap: public
-	@ln -sf `pwd`/vendor/bootstrap public
-	@echo "${INFO} Linking Twitter Bootstrap"
+	@cp -r vendor/bootstrap public
+	@echo "${INFO} Copying Twitter Bootstrap"
+
+jquery:
+	@cp -r vendor/jquery public
+	@echo "${INFO} Copying jQuery"
 
 ## Database Migrations ##
 
