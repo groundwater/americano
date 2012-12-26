@@ -41,6 +41,7 @@ module.exports = (options={})->
             else
               res.send 200, markdown
         
+        # No matching document
         else
           
           # Possibly fall through to the next middleware
@@ -48,7 +49,8 @@ module.exports = (options={})->
             res.send 404
           else
             next()
-      
+    
+    # Non-matched URLs are passed to the next middleware
     else
       next()
 
