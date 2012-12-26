@@ -33,6 +33,12 @@ default:
 	@echo "  require       compile and optimize require.js modules"
 	@echo "  migrate       migrate database"
 	@echo
+	@echo "First time? Try:"
+	@echo
+	@echo "  example       ready the example application"
+	@echo
+
+example: .env develop
 
 develop: install link-src
 	@echo "${INFO} Using Development Mode"
@@ -114,6 +120,9 @@ endef
 
 link-src: install
 	@$(call link-source,lib)
+
+.env:
+	cp .homebrew/.env .env
 
 ## All ##
 
