@@ -2,7 +2,7 @@ rude    = require 'rude'
 express = require 'express'
 ejs     = require 'ejs'
 
-html    = require 'lib/html'
+{html,markdown} = require 'lib'
 
 router  = require './router'
 
@@ -27,6 +27,7 @@ module.exports = (models,routes,guides,lib,options)->
   app.use express.cookieSession( cookieSessionOptions  )
   app.use express.csrf()
   app.use '/assets', express.static( options.public )
+  app.use markdown( template: 'index.ejs' )
   
   # Template Defaults
   app.locals.title = options.title || 'My Application'
