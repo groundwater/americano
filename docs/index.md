@@ -1,5 +1,7 @@
 # Welcome to Americano
 
+![Cafe Americano](¿americano.jpeg?)
+
 > Americano is a project aimed at making Node.js web development wickedly awesome.
 
 ## Philosophy

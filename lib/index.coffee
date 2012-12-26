@@ -7,3 +7,4 @@ module.exports =
   html     : require './html'
   nodez    : require './nodez'
   markdown : require './markdown'
+  rude     : require './rude'

@@ -3,6 +3,8 @@ Path       = require 'path'
 
 {Markdown} = require 'node-markdown'
 
+rude       = (require 'rude').config()
+
 # This markdown middleware renders markdown documents
 # that match against an incoming URL
 module.exports = (options={})->
@@ -13,6 +15,11 @@ module.exports = (options={})->
   indexname = options.indexname || 'index'
   template  = options.template
   override  = options.override  || false
+  ruderegex = options.regex     || /¿(.*?)\?/gi
+  
+  prepare   = (data)->
+    data.replace ruderegex , (match,$1,offset)->
+      rude $1.trim()
   
   # Resolve markdown data with the following protocol
   getData   = (path,callback)->
@@ -61,9 +68,11 @@ module.exports = (options={})->
       getData file, (err,data)->
         
         return next() if err
-            
+        
+        prepared = prepare data.toString()
+        
         # Render markdown
-        markdown = Markdown data.toString()
+        markdown = Markdown prepared
             
         # Wrap markdown in express template
         if template
