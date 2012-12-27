@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
+  "bin":{
+    "americano":"bin/americano.coffee"
+  },
   "scripts": {
     "start": "echo \"Please create a Procfile with 'make release' or 'make develop'\"",
     "postinstall": "make release"
@@ -22,7 +25,8 @@
     "db-migrate": "latest",
     "node-dev": "latest",
     "mu2": "~0.5.17",
-    "string": "~1.1.0"
+    "string": "~1.1.0",
+    "commander": "latest"
   },
   "dependencies": {
     "coffee-script": "latest",
