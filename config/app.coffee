@@ -36,9 +36,6 @@ module.exports = (models,routes,guides,lib,options)->
   app.locals.rude  = rude.config()
   app.locals.html  = html
   
-  # Attach Library
-  app.lib    = lib
-  
   # Attach MVC
   app.guides = guides
   app.models = models(app)
