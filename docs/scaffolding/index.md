@@ -1,11 +1,8 @@
 # Scaffolding
 
 Americano has helper scripts to generate a lot of sensible code for you.
-Generate model scaffolding using the following script:
+Generate model scaffolding using the following:
 
-    coffee script/models/models.coffee MODEL PROP_1,PROP_2,PROP_3
+    americano mixin MODEL PROP1,PROP2,PROP3
 
-For example,
-    
-    coffee script/models/models.coffee user fname,lname,email
-
+The Americano binary is the high-level wrapper of the low-level scripts.
