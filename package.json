@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
-  "bin":{
-    "americano":"bin/americano.coffee"
+  "bin": {
+    "americano": "bin/americano.coffee"
   },
   "scripts": {
     "start": "echo \"Please create a Procfile with 'make release' or 'make develop'\"",

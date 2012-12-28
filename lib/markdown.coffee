@@ -52,9 +52,9 @@ module.exports = (options={})->
         
         len = path.length - extension.length + 1
         if (path.indexOf extension) == len
-          getData path + extension, callback
-        else
           callback true
+        else
+          getData path + extension, callback
   
   (req,res,next)->
     
