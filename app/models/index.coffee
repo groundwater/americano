@@ -7,3 +7,4 @@ module.exports = (app) ->
   # e.g.
   # users: require('./user')(app)  
 
+  pages: require('./pages')(app)

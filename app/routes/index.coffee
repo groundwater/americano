@@ -9,3 +9,4 @@ module.exports = (app)->
   index: connect.TODO
   login: connect.TODO
 
+  pages: require('./pages')(app)

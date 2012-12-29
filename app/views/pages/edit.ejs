@@ -1,0 +1,14 @@
+<% include ../header %>
+<form method="<%= method %>" action="<%= action %>" class="form-horizontal">
+  <div class="control-group">    <label class="control-label" for="inputcontent">content</label>    <div class="controls">      <input type="text" name="content" placeholder="content" value="<%= page.content %>">    </div>  </div>
+  <div class="control-group">    <label class="control-label" for="inputurl">url</label>    <div class="controls">      <input type="text" name="url" placeholder="url" value="<%= page.url %>">    </div>  </div>
+  <div class="control-group">    <label class="control-label" for="inputhash">hash</label>    <div class="controls">      <input type="text" name="hash" placeholder="hash" value="<%= page.hash %>">    </div>  </div>
+  <input type="hidden" name="_csrf" value="<%= token %>">
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn-primary">Submit</button>
+      <a class="btn"href="<%= cancel %>">Cancel</a>
+    </div>
+  </div>
+</form>
+<% include ../footer %>

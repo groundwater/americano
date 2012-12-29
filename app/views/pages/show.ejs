@@ -1,0 +1,9 @@
+<% include ../header %>
+<ul>
+    <li><%= page.content %></li>
+    <li><%= page.url %></li>
+    <li><%= page.hash %></li>
+</ul>
+<a href="/page/<%= page.id %>/edit">Edit</a>
+<a href="/pages">List</a>
+<% include ../footer %>
