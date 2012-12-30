@@ -6,6 +6,9 @@
   "bin": {
     "americano": "bin/americano.coffee"
   },
+  "scripts": {
+    "postinstall": "cake build:release"
+  },
   "repository": "",
   "author": "Jacob Groundwater",
   "license": "MIT",

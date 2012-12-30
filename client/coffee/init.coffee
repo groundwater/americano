@@ -1,6 +1,7 @@
 # Configure non-requireJS modules such as
 # twitter bootstrap, and jquery
 requirejs.config
+  baseUrl: '/assets'
   paths:
     'jquery'    : '/assets/jquery'
     'bootstrap' : '/assets/bootstrap/js/bootstrap'
@@ -15,8 +16,8 @@ requirejs.config
 require [ 
   'jquery'
   'bootstrap'
-  'main'
-  'log'
+  'scripts/main'
+  'scripts/log'
 ], ($,bootstrap,main,log) ->
   log.info 'RequireJS Initialized'
   

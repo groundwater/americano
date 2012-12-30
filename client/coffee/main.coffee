@@ -1,6 +1,6 @@
 # The main project module that initializes 
 # all page behaviour
-define ['jquery','config','pjax','spinner'], ($,config,pjax,spinner)->
+define ['jquery','scripts/config','pjax','scripts/spinner'], ($,config,pjax,spinner)->
 
   ##################
   # Site Code Here #
