@@ -14,7 +14,7 @@ mkdir = (dir) -> execSync format 'mkdir -p %s', dir
 
 pub = (path)-> 'tmp/public/' + path
 
-components = ->
+components = (ln) ->
   ln 'components/requirejs/require.js',         pub 'require.js'
   ln 'components/jquery/jquery.js',             pub 'jquery.js'
   ln 'components/jquery-pjax/jquery.pjax.js',   pub 'pjax.js'
@@ -35,7 +35,7 @@ task 'build:develop', 'Build project for development', (options)->
   ln 'client/templates',                      'tmp/public/templates'
   ln 'tmp/public',                            'public'
   
-  components()
+  components ln
 
 task 'build:release', 'Build project for release', (options)->
   info 'Building Release Bundle'
@@ -47,7 +47,7 @@ task 'build:release', 'Build project for release', (options)->
   
   lk 'build/public', 'public'
   
-  components()
+  components cp
   
   execSync 'node_modules/.bin/coffee -c -o tmp/public/scripts client/coffee'
   execSync 'node_modules/.bin/r.js -o script/app.build.js >> cake.log 2>&1'
