@@ -30,7 +30,7 @@ options=
 guides =
 
 # Listen
-app = config models, routes, guides, stdlib, options
+app = config models, routes, guides, options
 app.listen PORT
 
 # Emit Logs

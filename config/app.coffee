@@ -9,7 +9,7 @@ router  = require './router'
 # Create and configure an express application
 # based on the provided routes, guides, models, library
 # and other options
-module.exports = (models,routes,guides,lib,options)->
+module.exports = (models,routes,guides,options)->
   
   # Setup Application
   app = express()
