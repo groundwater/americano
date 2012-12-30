@@ -6,10 +6,6 @@
   "bin": {
     "americano": "bin/americano.coffee"
   },
-  "scripts": {
-    "start": "echo \"Please create a Procfile with 'make release' or 'make develop'\"",
-    "postinstall": "make release"
-  },
   "repository": "",
   "author": "Jacob Groundwater",
   "license": "MIT",
