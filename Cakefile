@@ -8,23 +8,29 @@ done = -> console.log '[DONE]', format.apply null, arguments
 
 rm = (node)   -> execSync format 'rm -r %s', node
 ln = (from,to)-> execSync format 'ln -sfn `pwd`/%s %s', from, to
-mk = (dir)    -> execSync format 'mkdir -p %s', dir
+mkdir = (dir)    -> execSync format 'mkdir -p %s', dir
+
+pub = (path)->
+  'tmp/public/' + path
 
 task 'build:develop', 'Build project for development', (options)->
   info 'Building Development Bundle'
   
   ln 'Procfile.develop', 'Procfile'
   
-  mk 'tmp/public'
-  mk 'tmp/public/styles'
-  mk 'tmp/public/scripts'
+  mkdir 'tmp/public'
+  mkdir 'tmp/public/styles'
+  mkdir 'tmp/public/scripts'
   
   ln 'client/templates',                      'tmp/public/templates'
   
-  ln 'vendor/requirejs/require.js',           'tmp/public/require.js'
-  ln 'vendor/bootstrap',                      'tmp/public/bootstrap'
-  ln 'vendor/jquery/jquery-1.8.2.min.js',     'tmp/public/scripts/jquery.js'
-  ln 'vendor/text/text.js',                   'tmp/public/scripts/text.js'
+  ln 'components/requirejs/require.js',         pub 'require.js'
+  ln 'components/jquery/jquery.js',             pub 'jquery.js'
+  ln 'components/jquery-pjax/jquery.pjax.js',   pub 'pjax.js'
+  ln 'components/spin.js/spin.js',              pub 'spin.js'
+  ln 'components/requirejs-text/text.js',       pub 'scripts/text.js'
+  
+  ln 'vendor/bootstrap',                        pub 'bootstrap'
   
   ln 'tmp/public',                            'public'
 

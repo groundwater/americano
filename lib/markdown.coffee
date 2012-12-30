@@ -50,13 +50,16 @@ module.exports = (options={})->
         # try again with the default extension,
         # otherwise fail
         
-        len = path.length - extension.length + 1
+        len = path.length - extension.length
         if (path.indexOf extension) == len
           callback true
         else
           getData path + extension, callback
   
   (req,res,next)->
+    
+    # Support for pjax
+    pjax = req.headers['x-pjax']
     
     # Capture URLs that match `base_path`
     if (req.path.indexOf base_path) == 0
@@ -75,7 +78,9 @@ module.exports = (options={})->
         markdown = Markdown prepared
             
         # Wrap markdown in express template
-        if template
+        if pjax
+          res.send 200, markdown
+        else if template
           render=
             body: markdown
           res.render template, render

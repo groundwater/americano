@@ -20,4 +20,6 @@ Develop quickly, but remain flexible.
 
 1. [Scaffolding](/docs/scaffolding)
 2. [Markdown](/docs/markdown)
-3. [Todo](/docs/todo)
+3. [Scripting](/docs/scripting)
+4. [Todo](/docs/todo)
+

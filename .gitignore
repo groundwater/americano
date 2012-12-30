@@ -4,3 +4,4 @@ Procfile
 .env
 tmp
 public
+components
