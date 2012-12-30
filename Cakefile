@@ -9,6 +9,7 @@ done = -> console.log '[DONE]', format.apply null, arguments
 cp = (from,to)-> execSync format 'cp -r %s %s', from, to
 rm = (node)   -> execSync format 'rm -r %s', node
 ln = (from,to)-> execSync format 'ln -sfn `pwd`/%s %s', from, to
+lk = (from,to)-> execSync format 'ln -sfn %s %s', from, to
 mkdir = (dir) -> execSync format 'mkdir -p %s', dir
 
 pub = (path)-> 'tmp/public/' + path
@@ -43,6 +44,8 @@ task 'build:release', 'Build project for release', (options)->
   
   mkdir 'tmp/public/scripts'
   mkdir 'build/public/scripts'
+  
+  lk 'build/public', 'public'
   
   components()
   
