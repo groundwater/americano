@@ -25,8 +25,7 @@
     "node-dev": "latest",
     "mu2": "~0.5.17",
     "string": "~1.1.0",
-    "commander": "latest",
-    "execSync": "0.0.1"
+    "commander": "latest"
   },
   "dependencies": {
     "coffee-script": "latest",
@@ -40,7 +39,8 @@
     "requirejs": "~2.1.2",
     "stylus": "~0.31.0",
     "async": "~0.1.22",
-    "node-markdown": "~0.1.1"
+    "node-markdown": "~0.1.1",
+    "execSync": "0.0.1"
   },
   "engines": {
     "node": "0.8.x",
