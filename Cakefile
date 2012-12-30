@@ -39,8 +39,7 @@ task 'build:develop', 'Build project for development', (options)->
 task 'build:release', 'Build project for release', (options)->
   info 'Building Release Bundle'
   
-  ln 'Procfile.release', 'Procfile'
-  ln 'build/lib',        'node_modules/lib'
+  cp 'Procfile.release', 'Procfile'
   
   mkdir 'tmp/public/scripts'
   mkdir 'build/public/scripts'
@@ -59,7 +58,7 @@ task 'build:release', 'Build project for release', (options)->
   
   execSync 'node_modules/.bin/coffee -c -o build/app app'
   execSync 'node_modules/.bin/coffee -c -o build/config config'
-  execSync 'node_modules/.bin/coffee -c -o build/lib lib'
+  execSync 'node_modules/.bin/coffee -c -o node_modules/lib lib'
   execSync 'node_modules/.bin/coffee -c -o build server'
   execSync 'node_modules/.bin/stylus --compress --out build/public/styles client/stylus >> cake.log 2>&1'
 
