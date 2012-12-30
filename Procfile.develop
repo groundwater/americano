@@ -1,6 +1,6 @@
 web: node-dev server.coffee
 coffee: coffee -w -c -o tmp/public/scripts client/coffee
 stylus: node_modules/.bin/stylus --line-numbers --watch --out tmp/public/styles client/stylus
-app:    coffee -w -c -o tmp/app app
-lib:    coffee -w -c -o tmp/lib lib
-config: coffee -w -c -o tmp/config config
+app:    coffee -w -c -o tmp/debug/app app
+lib:    coffee -w -c -o tmp/debug/lib lib
+config: coffee -w -c -o tmp/debug/config config

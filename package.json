@@ -26,7 +26,8 @@
     "node-dev": "latest",
     "mu2": "~0.5.17",
     "string": "~1.1.0",
-    "commander": "latest"
+    "commander": "latest",
+    "execSync": "0.0.1"
   },
   "dependencies": {
     "coffee-script": "latest",
