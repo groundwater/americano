@@ -32,7 +32,6 @@
     "ejs": "latest",
     "express": "latest",
     "rude": "latest",
-    "nodefly": "~0.1.16a",
     "mysql": "latest",
     "redis": "latest",
     "mongodb": "latest",

@@ -17,7 +17,6 @@ express = require 'express'
 config  = require './config/app'
 models  = require './app/models'
 routes  = require './app/routes'
-stdlib  = require './lib'
 
 # Initialize External Resources
 
