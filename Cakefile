@@ -6,15 +6,15 @@ fail = -> console.log '[FAIL]', format.apply null, arguments
 warn = -> console.log '[WARN]', format.apply null, arguments
 done = -> console.log '[DONE]', format.apply null, arguments
 
-cp = (from,to)-> execSync format 'cp -r %s %s', from, to
-rm = (node)   -> execSync format 'rm -r %s', node
-ln = (from,to)-> execSync format 'ln -sfn `pwd`/%s %s', from, to
-lk = (from,to)-> execSync format 'ln -sfn %s %s', from, to
-mkdir = (dir) -> execSync format 'mkdir -p %s', dir
+cp = (from,to)-> execSync format 'cp -r %s %s >> cake.log 2>&1', from, to
+rm = (node)   -> execSync format 'rm -r %s >> cake.log 2>&1', node
+ln = (from,to)-> execSync format 'ln -sfn `pwd`/%s %s >> cake.log 2>&1', from, to
+lk = (from,to)-> execSync format 'ln -sfn %s %s >> cake.log 2>&1', from, to
+mkdir = (dir) -> execSync format 'mkdir -p %s >> cake.log 2>&1', dir
 
 pub = (path)-> 'tmp/public/' + path
 
-components = (ln,pub) ->
+components = (ln) ->
   ln 'components/requirejs/require.js',         pub 'require.js'
   ln 'components/jquery/jquery.js',             pub 'jquery.js'
   ln 'components/jquery-pjax/jquery.pjax.js',   pub 'pjax.js'
@@ -35,10 +35,12 @@ task 'build:develop', 'Build project for development', (options)->
   ln 'client/templates',                      'tmp/public/templates'
   ln 'tmp/public',                            'public'
   
-  components ln, pub
+  components ln
 
 task 'build:release', 'Build project for release', (options)->
   info 'Building Release Bundle'
+  
+  execSync 'node_modules/.bin/bower install >> cake.log 2>&1'
   
   cp 'Procfile.release', 'Procfile'
   
@@ -47,7 +49,9 @@ task 'build:release', 'Build project for release', (options)->
   
   lk 'build/public', 'public'
   
-  components cp, (path)-> 'build/public/' + path
+  components cp
+  
+  cp 'tmp/public/require.js', 'build/public/require.js'
   
   execSync 'node_modules/.bin/coffee -c -o tmp/public/scripts client/coffee'
   execSync 'node_modules/.bin/r.js -o script/app.build.js >> cake.log 2>&1'
@@ -70,3 +74,4 @@ task 'clean', 'Clean all temporary data', (options)->
   rm 'Procfile'
   rm 'build'
   rm 'public'
+  rm 'components'
